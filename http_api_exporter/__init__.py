@@ -4,55 +4,14 @@ import json
 import traceback
 import logging
 import os
+from .Log_helper import getLogger
 
 class ApiHttpServer:
     
     def __init__(self, functionDict = dict(), WelcomePage = "Python APIs are providing.", debug = False):
+        logger = getLogger(self.__class__.__name__)
         
-        #set logging
-        logger = logging.getLogger()
-        
-        logger.setLevel(logging.NOTSET)
-        
-        formatter = logging.Formatter(
-                '%(asctime)s - %(name)s.%(funcName)s %(levelname)-5s : %(message)s',
-                '%m-%d %H:%M'
-            )
-        
-        LOG_DIR = "logs"
-        LOG_FILE = 'APIphone.log'
-        
-        LOG_DIR = os.path.join(os.path.dirname(__file__), LOG_DIR)
-        LOG_FILE = os.path.join(LOG_DIR, LOG_FILE)
-        
-        if not os.path.exists(LOG_DIR):
-            os.mkdir(LOG_DIR)
-        
-        if not os.path.exists(LOG_FILE):
-            open(LOG_FILE, 'w').close()
-        
-        hdlr = logging.handlers.TimedRotatingFileHandler(
-                LOG_FILE,
-                when = "D",
-                interval = 1,
-                backupCount = 7
-            )
-        hdlr.setLevel(logging.DEBUG)
-        hdlr.setFormatter(formatter)
-            
-        console = logging.StreamHandler()
-        if debug:
-            console.setLevel(logging.DEBUG)
-        else:
-            console.setLevel(logging.INFO)
-        console.setFormatter(formatter)
-        
-        logger.handlers = []
-        logger.addHandler(hdlr)
-        logger.addHandler(console)
-        
-        logger = logging.getLogger(self.__class__.__name__)
-        #finish set logging
+        self.__logger = logger
         
         self.__functionDict = dict()
         for key, item in functionDict.items():
@@ -63,13 +22,13 @@ class ApiHttpServer:
     def __make_app(self):
         RouterList = list()
         for router, function in self.__functionDict.items():
-            RouterList.append(('/' + router, self.__MainHandler, dict(Function = function)))
+            RouterList.append(('/' + router, self.__MainHandler, dict(Function = function, logger = self.__logger)))
         
-        RouterList.append((r'/', self.__WelcomeHandler, dict(WelcomePage=self.__WelcomePage)))
+        RouterList.append((r'/', self.__WelcomeHandler, dict(WelcomePage=self.__WelcomePage, logger = self.__logger)))
         return tornado.web.Application(RouterList)
     
     def bind(self, route = None, function = None, diction = None):
-        logger = logging.getLogger(self.__class__.__name__)
+        logger = self.__logger
         
         if isinstance(diction, dict):
             for _route, _function in diction.items():
@@ -87,18 +46,20 @@ class ApiHttpServer:
         tornado.ioloop.IOLoop.current().start()
         
     class __WelcomeHandler(tornado.web.RequestHandler):
-        def initialize(self, WelcomePage):
+        def initialize(self, WelcomePage, logger):
             self.__WelcomePage = WelcomePage
+            self.__logger = logger
         
         def get(self):
             self.write(self.__WelcomePage)
     
     class __MainHandler(tornado.web.RequestHandler):
-        def initialize(self, Function):
+        def initialize(self, Function, logger):
             self.__Function = Function
+            self.__logger = logger
 
         def post(self):
-            logger = logging.getLogger(self.__class__.__name__)
+            logger = self.__logger
             
             logger.info('A coming request at route "%s".' % (self.request.uri))
             

@@ -2,7 +2,6 @@ import tornado.ioloop
 import tornado.web
 import json
 import traceback
-import logging
 import os
 from .Log_helper import getLogger
 

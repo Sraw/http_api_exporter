@@ -41,6 +41,10 @@ def getLogger(className, debug = False):
     
     logger.addHandler(hdlr)
     logger.addHandler(console)
+    tornadologger = logging.getLogger("tornado.access")
+    tornadologger.addHandler(hdlr)
+    tornadologger.addHandler(console)
+    tornadologger.setLevel(logging.DEBUG)
     logger.setLevel(logging.DEBUG)
     
     return logger

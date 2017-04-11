@@ -1,4 +1,4 @@
-from http_api_exporter import *
+from __init__ import ApiHttpServer
 
 def test_function_no_params():
     return {

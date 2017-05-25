@@ -1,4 +1,4 @@
-from __init__ import ApiHttpServer
+from context import ApiHttpServer
 
 def test_function_no_params():
     return {

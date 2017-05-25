@@ -62,7 +62,7 @@ initialize an instance.
 
 <br />
 
-__ApiHttpServer.bind(self, route = None, function = None, dict = None) :__
+__ApiHttpServer.bind(self, route = None, function = None, diction = None) :__
 
 Bind the function.
     

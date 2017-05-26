@@ -41,10 +41,27 @@ def getLogger(className, debug = False):
     
     logger.addHandler(hdlr)
     logger.addHandler(console)
-    tornadologger = logging.getLogger("tornado.access")
-    tornadologger.addHandler(hdlr)
-    tornadologger.addHandler(console)
-    tornadologger.setLevel(logging.DEBUG)
+    
+    tornado_access_logger = logging.getLogger("tornado.access")
+    tornado_application_logger = logging.getLogger("tornado.application")
+    tornado_general_logger = logging.getLogger("tornado.general")
+    
+    tornado_access_logger.handlers = []
+    tornado_application_logger.handlers = []
+    tornado_general_logger.handlers = []
+    
+    tornado_access_logger.addHandler(hdlr)
+    tornado_access_logger.addHandler(console)
+    tornado_access_logger.setLevel(logging.DEBUG)
+    
+    tornado_application_logger.addHandler(hdlr)
+    tornado_application_logger.addHandler(console)
+    tornado_application_logger.setLevel(logging.DEBUG)
+    
+    tornado_general_logger.addHandler(hdlr)
+    tornado_general_logger.addHandler(console)
+    tornado_general_logger.setLevel(logging.DEBUG)
+    
     logger.setLevel(logging.DEBUG)
     
     return logger

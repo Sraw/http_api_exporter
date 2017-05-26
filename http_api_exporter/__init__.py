@@ -4,8 +4,10 @@ import json
 import traceback
 import os
 import socket
+import logging
 from .Log_helper import getLogger
 from .Handler import *
+from tornado.options import options
 
 class ApiHttpServer:
     
@@ -39,13 +41,13 @@ class ApiHttpServer:
         for tried in range(retry + 1):
             try:
                 checkListen = app.listen(port + tried)
+                self.__logger.info("The server starts at port {0}".format(port + tried))
                 break
             except socket.error as e:
                 self.__logger.info("Port {0} has been used.".format(port + tried))
         if checkListen is None :
             self.__logger.warning("All retries failed.")
             raise socket.error("Port {0} to {1} have been used.".format(port, port + retry))
-        self.__logger.info("The server starts at port {0}".format(port))
         tornado.ioloop.IOLoop.current().start()
         
     def __make_app(self):

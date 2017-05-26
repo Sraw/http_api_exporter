@@ -53,7 +53,7 @@ class ApiHttpServer:
     def __make_app(self):
         RouterList = list()
         for router, function in self.__functionDict.items():
-            RouterList.append(('/' + router, MainHandler, dict(Function = function, logger = self.__logger)))
+            RouterList.append((router, MainHandler, dict(Function = function, logger = self.__logger)))
         
         RouterList.append((r'/', WelcomeHandler, dict(WelcomePage=self.__WelcomePage, logger = self.__logger)))
         return tornado.web.Application(RouterList)

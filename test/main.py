@@ -15,8 +15,8 @@ def test_function_params(paramone, paramtwo):
 
 app = ApiHttpServer()
 app.bind(diction = {
-    "test_1" : test_function_no_params,
-    "test_2" : test_function_no_return,
-    "test_3" : test_function_params
+    "/test_1" : test_function_no_params,
+    "/test_2" : test_function_no_return,
+    "/test_3" : test_function_params
 })
 app.start(8080)

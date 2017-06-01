@@ -1,4 +1,5 @@
 import json
+import copy
 import tornado
 import traceback
 
@@ -30,7 +31,7 @@ class MainHandler(tornado.web.RequestHandler):
         
         try:
             if 'Input' in form:
-                Input = form['Input']
+                Input = copy.deepcopy(form['Input'])
                 del form['Input']
                 ArgsDict = form
             else:
@@ -46,17 +47,12 @@ class MainHandler(tornado.web.RequestHandler):
             
             if not isinstance(result, dict):
                 self.set_status(400)
-                ErrorMsg = self.__getErrorMsg("The result of function must be a dict.")
+                ErrorMsg = self.__getErrorMsg("You are calling a function whose result can't be jsonified, please contact with author.")
                 self.finish(ErrorMsg)
             
             JsonOutput = self.__getSuccessMsg(result)
             self.set_status(200)
             self.finish(JsonOutput)
-        except KeyError as e:
-            self.set_status(400)
-            ErrorMsg = self.__getErrorMsg('{0} is not a available function.'.format(e))
-            logger.error(e)
-            self.finish(ErrorMsg)
         except Exception as e:
             self.set_status(500)
             ErrorMsg = self.__getErrorMsg(traceback.format_exc())

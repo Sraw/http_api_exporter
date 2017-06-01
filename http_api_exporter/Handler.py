@@ -55,7 +55,7 @@ class MainHandler(tornado.web.RequestHandler):
             self.finish(JsonOutput)
         except Exception as e:
             self.set_status(500)
-            ErrorMsg = self.__getErrorMsg(e)
+            ErrorMsg = self.__getErrorMsg(str(e))
             logger.error(traceback.format_exc())
             self.finish(ErrorMsg)
 

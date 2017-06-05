@@ -106,17 +106,7 @@ if __name__ == "__main__":
 
 ## Attention
 
-Not every data structure could be jsonified. So the results your function returns must be hashable.
-
-There is a list of hashable structures as I know:
-
-````
-int
-float
-str
-list
-dictionary
-````
+Your function must return a dictionary which could be jsonified.
 
 ## What's more
 

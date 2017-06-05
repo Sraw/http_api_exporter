@@ -26,7 +26,7 @@ class MainHandler(tornado.web.RequestHandler):
         except Exception as e:
             self.set_status(400)
             ErrorMsg = self.__getErrorMsg("Body parse error, only JSON is accepted.")
-            logger.error(e)
+            logger.error(traceback.format_exc())
             self.finish(ErrorMsg)
             return
         
@@ -41,6 +41,7 @@ class MainHandler(tornado.web.RequestHandler):
         if not isinstance(Input, list):
             self.set_status(400)
             ErrorMsg = self.__getErrorMsg("Input must be a list.")
+            logger.error("'Input' in the coming request is not a list.")
             self.finish(ErrorMsg)
             return
         
@@ -56,6 +57,7 @@ class MainHandler(tornado.web.RequestHandler):
         if not isinstance(result, dict):
             self.set_status(400)
             ErrorMsg = self.__getErrorMsg("You are calling a function whose result is not a dictionary, please contact with author.")
+            logger.error("The coming request is calling a function whose result is not a dictionary.")
             self.finish(ErrorMsg)
             return
         
@@ -64,6 +66,7 @@ class MainHandler(tornado.web.RequestHandler):
         except TypeError as e:
             self.set_status(400)
             ErrorMsg = self.__getErrorMsg("The result returned from the function you are calling is not jsonifiable, please contact with author.")
+            logger.error(traceback.format_exc())
             self.finish(ErrorMsg)
             return
         

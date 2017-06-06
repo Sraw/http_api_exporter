@@ -12,7 +12,7 @@ from tornado.options import options
 class ApiHttpServer:
     
     def __init__(self, functionDict = dict(), WelcomePage = "Python APIs are providing.", debug = False):
-        logger = getLogger(self.__class__.__name__)
+        logger = getLogger(self.__class__.__name__, debug)
         
         self.__logger = logger
         

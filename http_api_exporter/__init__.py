@@ -12,7 +12,7 @@ from tornado.options import options
 class ApiHttpServer:
     
     def __init__(self, functionDict = dict(), WelcomePage = "Python APIs are providing.", debug = False):
-        logger = getLogger(self.__class__.__name__)
+        logger = getLogger(self.__class__.__name__, debug)
         
         self.__logger = logger
         
@@ -35,7 +35,7 @@ class ApiHttpServer:
         else:
             raise TypeError("'route' should be a str and 'function' should be a function. Or diction should be a dictonary")
         
-    def start(self, port = 80, retry = 5):
+    def start(self, port = 80, retry = 0):
         app = self.__make_app()
         checkListen = None
         for tried in range(retry + 1):
@@ -46,8 +46,10 @@ class ApiHttpServer:
             except socket.error as e:
                 self.__logger.info("Port {0} has been used.".format(port + tried))
         if checkListen is None :
-            self.__logger.warning("All retries failed.")
-            raise socket.error("Port {0} to {1} have been used.".format(port, port + retry))
+            if retry > 0:
+                self.__logger.warning("All retries failed.")
+                raise socket.error("Port {0} to {1} have been used.".format(port, port + retry))
+                
         tornado.ioloop.IOLoop.current().start()
         
     def __make_app(self):

@@ -46,8 +46,6 @@ Finally, you have two ways to pass the args.
 }
 ```
 
-if your function return multiple results, the results will be wrapped into a list.
-
 ## API
 
 __ApiHttpServer.\_\_init\_\_(functionDict = dict(), WelcomePage = "Python APIs are providing.") :__

@@ -21,11 +21,10 @@ class MainHandler(tornado.web.RequestHandler):
         
         logger.info('A coming request at route "%s".' % (self.request.uri))
         
-        print(self.request.body)
-        print(type(self.request.body))
-        if self.request.body is not None:
+        jsonInput = self.request.body.decode('utf8')
+        if jsonInput is not "":
             try:
-                form = json.loads(self.request.body.decode('utf8'))
+                form = json.loads(jsonInput)
             except Exception as e:
                 self.set_status(400)
                 ErrorMsg = self.__getErrorMsg("Body parse error, only JSON is accepted.")
@@ -36,10 +35,10 @@ class MainHandler(tornado.web.RequestHandler):
             if 'Input' in form:
                 Input = copy.deepcopy(form['Input'])
                 del form['Input']
-                ArgsDict = form
+                argsDict = form
             else:
                 Input = list()
-                ArgsDict = form
+                argsDict = form
                 
             if not isinstance(Input, list):
                 self.set_status(400)
@@ -49,10 +48,10 @@ class MainHandler(tornado.web.RequestHandler):
                 return
         else:
             Input = list()
-            ArgsDict = dict()
+            argsDict = dict()
         
         try:    
-            result = self.__Function(*Input, **ArgsDict)
+            result = self.__Function(*Input, **argsDict)
         except Exception as e:
             self.set_status(500)
             ErrorMsg = self.__getErrorMsg(str(e))
@@ -69,7 +68,7 @@ class MainHandler(tornado.web.RequestHandler):
                 return
         
             try:
-                JsonOutput = self.__getSuccessMsg(result)
+                jsonOutput = self.__getSuccessMsg(result)
             except TypeError as e:
                 self.set_status(400)
                 ErrorMsg = self.__getErrorMsg("The result returned from the function you are calling is not jsonifiable, please contact with author.")
@@ -78,12 +77,12 @@ class MainHandler(tornado.web.RequestHandler):
                 return
         else:
             logger.warning("The coming request is calling a function without returned value, please make sure this is what you want.")
-            JsonOutput = self.__getSuccessMsg({
+            jsonOutput = self.__getSuccessMsg({
                 "msg" : "The function you have called has no returned value, please make sure this is what you want."
             })
         
         self.set_status(200)
-        self.finish(JsonOutput)
+        self.finish(jsonOutput)
 
     def __getErrorMsg(self, msg):
         msgDict = {

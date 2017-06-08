@@ -11,24 +11,21 @@ from http_api_exporter import ApiHttpServer #import the class
 
 def function():                    #define the functions you want to export
     ...
-```
 
-Then you have two choices to bind the server with functions.
+# Then you have two choices to bind the server with functions.
 
-```
+
 app = ApiHttpServer({"Route" : function})
 app.start()
 
-or
+# or
 
 app = ApiHttpServer()
 app.bind("Route", function)
 app.start()
-```
 
-Finally, you have two ways to pass the args.
+# Finally, you have two ways to pass the args.
 
-```
 {                                   #pass the args as a list named "Input"
    Input: [args] 
 }
@@ -48,7 +45,7 @@ Finally, you have two ways to pass the args.
 
 ## API
 
-__ApiHttpServer.\_\_init\_\_(functionDict = dict(), WelcomePage = "Python APIs are providing.") :__
+__ApiHttpServer.\_\_init\_\_(functionDict = dict(), WelcomePage = "Python APIs are providing.", debug = False) :__
 
 initialize an instance.
     
@@ -57,6 +54,8 @@ initialize an instance.
 &emsp;&emsp;&emsp;functionDict __:__ A dictionary which is composed by "Route" as keys and functions as values.
 
 &emsp;&emsp;&emsp;WelcomePage __:__ A string that allow you modify the welcome page, which can be visited at the root route('\\').
+
+&emsp;&emsp;&emsp;debug __:__ Enable debug log output, default is `False`.
 
 <br />
 
@@ -74,7 +73,7 @@ Bind the function.
 
 <br />
 
-__ApiHttpServer.start(port = 80, retry = 5) :__
+__ApiHttpServer.start(port = 80, retry = 0) :__
 
 Start the server.
     
@@ -86,7 +85,7 @@ Start the server.
 
 ## Example
 
-````
+```
 from http_api_exporter import ApiHttpServer
 
 def testFunction(arg0, arg1):
@@ -100,11 +99,11 @@ if __name__ == "__main__":
     app.start()
     
 # then post url http://localhost/
-````
+```
 
 ## Attention
 
-Your function must return a dictionary which could be jsonified.
+Your function must returns a dictionary which could be jsonified or has no returned value.
 
 ## What's more
 

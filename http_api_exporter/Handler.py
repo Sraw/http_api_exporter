@@ -21,6 +21,8 @@ class MainHandler(tornado.web.RequestHandler):
         
         logger.info('A coming request at route "%s".' % (self.request.uri))
         
+        print(self.request.body)
+        print(type(self.request.body))
         if self.request.body is not None:
             try:
                 form = json.loads(self.request.body.decode('utf8'))

@@ -53,26 +53,31 @@ class MainHandler(tornado.web.RequestHandler):
             logger.error(traceback.format_exc())
             self.finish(ErrorMsg)
             return
-            
-        if not isinstance(result, dict):
-            self.set_status(400)
-            ErrorMsg = self.__getErrorMsg("You are calling a function whose result is not a dictionary, please contact with author.")
-            logger.error("The coming request is calling a function whose result is not a dictionary.")
-            self.finish(ErrorMsg)
-            return
         
-        try:
-            JsonOutput = self.__getSuccessMsg(result)
-        except TypeError as e:
-            self.set_status(400)
-            ErrorMsg = self.__getErrorMsg("The result returned from the function you are calling is not jsonifiable, please contact with author.")
-            logger.error(traceback.format_exc())
-            self.finish(ErrorMsg)
-            return
+        if result is not None:
+            if not isinstance(result, dict):
+                self.set_status(400)
+                ErrorMsg = self.__getErrorMsg("You are calling a function whose result is not a dictionary, please contact with author.")
+                logger.error("The coming request is calling a function whose result is not a dictionary.")
+                self.finish(ErrorMsg)
+                return
+        
+            try:
+                JsonOutput = self.__getSuccessMsg(result)
+            except TypeError as e:
+                self.set_status(400)
+                ErrorMsg = self.__getErrorMsg("The result returned from the function you are calling is not jsonifiable, please contact with author.")
+                logger.error(traceback.format_exc())
+                self.finish(ErrorMsg)
+                return
+        else:
+            logger.warning("The coming request is calling a function without returned value, please make sure this is what you want.")
+            JsonOutput = self.__getSuccessMsg({
+                "msg" : "The function you have called has no returned value, please make sure this is what you want."
+            })
         
         self.set_status(200)
         self.finish(JsonOutput)
-        return
 
     def __getErrorMsg(self, msg):
         msgDict = {

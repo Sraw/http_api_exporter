@@ -36,7 +36,11 @@ class ApiHttpServer:
             raise TypeError("'route' should be a str and 'function' should be a function. Or diction should be a dictonary")
         
     def start(self, port = 80, retry = 0):
-        app = self.__make_app()
+        if hasattr("application", self):
+            app = self.application
+        else:
+            app = self.__make_app()
+            
         checkListen = None
         for tried in range(retry + 1):
             try:
@@ -59,4 +63,6 @@ class ApiHttpServer:
             RouterList.append((router, MainHandler, dict(Function = function, logger = self.__logger)))
         
         RouterList.append((r'/', WelcomeHandler, dict(WelcomePage = self.__WelcomePage, logger = self.__logger)))
-        return tornado.web.Application(RouterList)
+        
+        self.application = tornado.web.Application(RouterList)
+        return self.application

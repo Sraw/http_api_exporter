@@ -111,9 +111,15 @@ Your function must returns a dictionary which could be jsonified or has no retur
 
 bind the functions to routes.
 
-return multiple results.
+support function without return.
 
-makes it possible to pass dictionary args.
+support function without parameters.
+
+support pass parameters by "Input" array.
+
+support pass parameters by dictionary form.
+
+support pass parameters by both of the above.
 
 ### TODO
 

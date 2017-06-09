@@ -4,6 +4,7 @@ setup(
   name = 'http_api_exporter',
   packages = ['http_api_exporter'],
   version = '1.1.0',
+  license = 'MIT',
   description = 'A simple api exporter for py',
   author = 'Sraw',
   author_email = 'lzyl888@gmail.com',
@@ -11,7 +12,11 @@ setup(
   download_url = 'https://github.com/Sraw/http_api_exporter/tarball/v1.1.0', 
   keywords = ['http', 'web', 'api', 'export'], 
   classifiers = [
-      'Programming Language :: Python :: 3'
+      'Development Status :: 5',
+      'Intended Audience :: Developers',
+      'License :: OSI Approved :: MIT License',
+      'Programming Language :: Python',
+      'Topic :: Internet :: WWW/HTTP :: HTTP Servers'
     ],
   install_requires=[
           'tornado>=4.4.3,<=4.5',

@@ -7,12 +7,12 @@ import os
 
 def get_logger(class_name, debug=False):
     """
-    configure logger before return if it has no handler.configure.
-    consist the performance of tornado's loggers.
+    Configure logger before return if it has no handlers.
+    Consist the performance of tornado's loggers.
     """
     logger = logging.getLogger(class_name)
 
-    if len(logger.handlers) != 0:
+    if not logging.getLogger().isEnabledFor(logging.CRITICAL) or not logger.handlers:
         return logger
 
     formatter = logging.Formatter(

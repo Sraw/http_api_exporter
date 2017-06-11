@@ -1,7 +1,9 @@
-from context import ApiHttpServer
+from tests.context import ApiHttpServer
 from tornado.testing import AsyncHTTPTestCase
 import unittest
 import json
+import logging
+logging.disable(logging.CRITICAL)
 
 def test_function_no_params():
     return {
@@ -19,19 +21,17 @@ def test_function_two_params(paramone, paramtwo):
 def test_function_invalid_json_output():
     return "invalid json output"
 
-app = ApiHttpServer()
-app.bind(diction = {
-    "/no_params" : test_function_no_params,
-    "/no_return" : test_function_no_return,
-    "/two_params" : test_function_two_params,
-    "/invalid_json_output" : test_function_invalid_json_output
-})
-application = app._ApiHttpServer__make_app()
-
 class ApiTestCase(AsyncHTTPTestCase):
     def get_app(self):
-        self.app = application
-        return self.app
+        app = ApiHttpServer()
+        app.bind(diction = {
+            "/no_params" : test_function_no_params,
+            "/no_return" : test_function_no_return,
+            "/two_params" : test_function_two_params,
+            "/invalid_json_output" : test_function_invalid_json_output
+        })
+        application = app._ApiHttpServer__make_app()
+        return application
 
     def test_no_params_without_body(self):
         response = self.fetch('/no_params', method='POST', allow_nonstandard_methods = True)
@@ -67,7 +67,7 @@ class ApiTestCase(AsyncHTTPTestCase):
       
     def test_invalid_json_output(self):
         response = self.fetch('/invalid_json_output', method='POST', allow_nonstandard_methods = True)
-        self.assertEqual(response.code, 400)    
+        self.assertEqual(response.code, 400)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

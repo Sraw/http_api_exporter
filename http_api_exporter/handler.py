@@ -34,7 +34,7 @@ class MainHandler(tornado.web.RequestHandler):
         if json_input is not "":
             try:
                 form = json.loads(json_input)
-            except json.JSONDecodeError as error:
+            except json.decoder.JSONDecodeError as error:
                 self.set_status(400)
                 error_msg = self.__get_error_msg("Body parse error, only JSON is accepted.")
                 logger.error(traceback.format_exc())

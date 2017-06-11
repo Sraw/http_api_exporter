@@ -21,4 +21,5 @@ setup(
   install_requires=[
           'tornado>=4.4.3,<=4.5',
       ],
+  test_suite="tests.main"
 )

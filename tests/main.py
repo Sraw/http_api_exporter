@@ -24,7 +24,7 @@ def test_function_invalid_json_output():
 class ApiTestCase(AsyncHTTPTestCase):
     def get_app(self):
         app = ApiHttpServer()
-        app.bind(diction = {
+        app.bind(dictionary = {
             "/no_params" : test_function_no_params,
             "/no_return" : test_function_no_return,
             "/two_params" : test_function_two_params,

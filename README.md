@@ -45,7 +45,7 @@ app.start()
 
 ## API
 
-__ApiHttpServer.\_\_init\_\_(functionDict = dict(), WelcomePage = "Python APIs are providing.", debug = False) :__
+__ApiHttpServer.\_\_init\_\_(function_dict = None, welcome_page = "Python APIs are providing.", debug = False) :__
 
 initialize an instance.
     
@@ -55,11 +55,11 @@ initialize an instance.
 
 &emsp;&emsp;&emsp;WelcomePage __:__ A string that allow you modify the welcome page, which can be visited at the root route('\\').
 
-&emsp;&emsp;&emsp;debug __:__ Enable debug log output, default is `False`.
+&emsp;&emsp;&emsp;debug __:__ Enable debug log stdout, default is `False`.
 
 <br />
 
-__ApiHttpServer.bind(self, route = None, function = None, diction = None) :__
+__ApiHttpServer.bind(self, route = None, function = None, dictionary = None) :__
 
 Bind the function.
     
@@ -69,7 +69,7 @@ Bind the function.
 
 &emsp;&emsp;&emsp;function __:__ The corresponding function.
 
-&emsp;&emsp;&emsp;diction __:__ If "diction" is not none, then the "route" and the "function" will be ignored. And unfold the dict that keys as routes and values as functions.
+&emsp;&emsp;&emsp;dictionary __:__ If "dictionary" is not none, then the "route" and the "function" will be ignored. And unfold the dict that keys as routes and values as functions.
 
 <br />
 
@@ -81,21 +81,21 @@ Start the server.
 
 &emsp;&emsp;&emsp;port __:__ Choose which port to listen on.
 
-&emsp;&emsp;&emsp;retry __:__ How many times to retry if the port has been used.
+&emsp;&emsp;&emsp;retry __:__ How many times to retry if the port has been used, default is 0 which means no retry.
 
 ## Example
 
 ```
 from http_api_exporter import ApiHttpServer
 
-def testFunction(arg0, arg1):
+def test_function(arg0, arg1):
     #do nothing
     return {
         "a" : 1
     }
 
 if __name__ == "__main__":
-    app = ApiHttpServer({"/", testFunction})
+    app = ApiHttpServer({"/", test_function})
     app.start()
     
 # then post url http://localhost/

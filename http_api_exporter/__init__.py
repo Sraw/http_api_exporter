@@ -30,12 +30,12 @@ class ApiHttpServer(object):
         self.__welcome_page = welcome_page
         self.application = None
 
-    def bind(self, route=None, function=None, diction=None):
+    def bind(self, route=None, function=None, dictionary=None):
         """bind the route with function."""
         logger = self.__logger
 
-        if isinstance(diction, dict):
-            for _route, _function in diction.items():
+        if isinstance(dictionary, dict):
+            for _route, _function in dictionary.items():
                 logger.info('Bind route "%s" with function "%s"', _route, _function.__name__)
                 self.__function_dict[_route] = _function
         elif hasattr(function, '__call__') and isinstance(route, str):
@@ -43,7 +43,7 @@ class ApiHttpServer(object):
             self.__function_dict[route] = function
         else:
             raise TypeError("'route' should be a str and 'function' should be a function."
-                            " Or diction should be a dictonary")
+                            " Or dictionary should be a dictonary")
 
     def start(self, port=80, retry=0):
         """start IOLoop listen on the specific port."""

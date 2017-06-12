@@ -45,21 +45,21 @@ app.start()
 
 ## API
 
-__ApiHttpServer.\_\_init\_\_(function_dict = None, welcome_page = "Python APIs are providing.", debug = False) :__
+__ApiHttpServer.\_\_init\_\_(function_dict=None, welcome_page="Python APIs are providing.", debug=False) :__
 
 initialize an instance.
     
 &emsp;&emsp;args __:__
 
-&emsp;&emsp;&emsp;functionDict __:__ A dictionary which is composed by "Route" as keys and functions as values.
+&emsp;&emsp;&emsp;function\_dict __:__ A dictionary which is composed by "Route" as keys and functions as values.
 
-&emsp;&emsp;&emsp;WelcomePage __:__ A string that allow you modify the welcome page, which can be visited at the root route('\\').
+&emsp;&emsp;&emsp;welcome\_page __:__ A string that allow you modify the welcome page, which can be visited at the root route('\\').
 
 &emsp;&emsp;&emsp;debug __:__ Enable debug log stdout, default is `False`.
 
 <br />
 
-__ApiHttpServer.bind(self, route = None, function = None, dictionary = None) :__
+__ApiHttpServer.bind(self, route=None, function=None, dictionary=None) :__
 
 Bind the function.
     
@@ -73,7 +73,7 @@ Bind the function.
 
 <br />
 
-__ApiHttpServer.start(port = 80, retry = 0) :__
+__ApiHttpServer.start(port=80, retry=0) :__
 
 Start the server.
     

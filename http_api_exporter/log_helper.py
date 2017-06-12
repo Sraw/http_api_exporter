@@ -12,7 +12,7 @@ def get_logger(class_name, debug=False):
     """
     logger = logging.getLogger(class_name)
 
-    if not logging.getLogger().isEnabledFor(logging.CRITICAL) or not logger.handlers:
+    if not logging.getLogger().isEnabledFor(logging.CRITICAL) or logger.handlers:
         return logger
 
     formatter = logging.Formatter(

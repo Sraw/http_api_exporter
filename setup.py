@@ -19,7 +19,7 @@ setup(
       'Topic :: Internet :: WWW/HTTP :: HTTP Servers'
     ],
   install_requires=[
-          'tornado>=4.4.3,<=4.5',
+          'tornado>=4.0.0,<5.0.0',
       ],
   test_suite="tests.main"
 )

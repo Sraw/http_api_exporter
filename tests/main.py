@@ -30,7 +30,7 @@ class ApiTestCase(AsyncHTTPTestCase):
             "/two_params" : test_function_two_params,
             "/invalid_json_output" : test_function_invalid_json_output
         })
-        application = app._ApiHttpServer__make_app()
+        application = app.make_app()
         return application
 
     def test_no_params_without_body(self):

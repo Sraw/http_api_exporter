@@ -1,8 +1,8 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
   name = 'http_api_exporter',
-  packages = ['http_api_exporter'],
+  packages = find_packages(),
   version = '1.2.2',
   license = 'MIT',
   description = 'A simple api exporter for py',

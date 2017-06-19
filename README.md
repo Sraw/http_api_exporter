@@ -4,6 +4,8 @@ This is a very simple http server lib designed to export APIs in python.
 
 The lib is based on tornado.
 
+The latest version is v1.2.3.
+
 ## Installment
 
 `pip install http_api_exporter`
@@ -50,7 +52,7 @@ app.start()
 ## API
 
 Class __SimpleApiServer__:
-* The simplist api server. Designed to easily bind functions to routes' post method.
+* The simplest api server. Designed to easily bind functions to routes' post method.
     * __\_\_init\_\___(function\_dict=None, welcome\_page="Python APIs are providing.", debug=False) :
         * Initialize the class.        
             * __function\_dict__ : A dictionary which is composed by "Route" as keys and functions as values.

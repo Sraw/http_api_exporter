@@ -3,13 +3,13 @@ from setuptools import setup
 setup(
   name = 'http_api_exporter',
   packages = ['http_api_exporter'],
-  version = '1.1.2',
+  version = '1.2.2',
   license = 'MIT',
   description = 'A simple api exporter for py',
   author = 'Sraw',
   author_email = 'lzyl888@gmail.com',
   url = 'https://github.com/Sraw/http_api_exporter', 
-  download_url = 'https://github.com/Sraw/http_api_exporter/tarball/v1.1.2', 
+  download_url = 'https://github.com/Sraw/http_api_exporter/tarball/v1.2.2', 
   keywords = "http web api export", 
   classifiers = [
       'Development Status :: 5 - Production/Stable',

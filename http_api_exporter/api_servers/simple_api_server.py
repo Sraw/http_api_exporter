@@ -66,11 +66,11 @@ class SimpleApiServer(AbstractApiServer):
             if retry > 0:
                 self.__logger.warning("All retries failed.")
                 raise socket.error("Port %d to %d have been used,"
-                                   " please change your port.", port, port + retry)
+                                   " please change your port." % (port, port + retry))
             else:
                 raise socket.error("Port %d has been used,"
                                    " please consider to enable retry"
-                                   " or change your port", port)
+                                   " or change your port" % port)
         
         self.start_all_periodic_tasks()
         tornado.ioloop.IOLoop.current().start()

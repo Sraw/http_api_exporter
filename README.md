@@ -4,6 +4,10 @@ This is a very simple http server lib designed to export APIs in python.
 
 The lib is based on tornado.
 
+## Installment
+
+`pip install http_api_exporter`
+
 ## Usage
 
 ```

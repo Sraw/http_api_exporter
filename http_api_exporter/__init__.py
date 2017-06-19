@@ -1,4 +1,4 @@
-from http_api_exporter.http_server import SimpleApiServer
+from http_api_exporter.api_servers import SimpleApiServer
 
 ApiHttpServer = SimpleApiServer
 

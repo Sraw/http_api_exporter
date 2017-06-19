@@ -10,10 +10,11 @@ import logging
 import tornado
 import tornado.web
 import tornado.ioloop
+from http_api_exporter.api_servers.abstract_api_server import AbstractApiServer
 from http_api_exporter.log_helper import get_logger
 from http_api_exporter.handler import WelcomeHandler, MainHandler
 
-class SimpleApiServer(object):
+class SimpleApiServer(AbstractApiServer):
     """This class is the main class which handles all the logic."""
     def __init__(self, function_dict=None,
                  welcome_page="Python APIs are providing.",
@@ -29,6 +30,7 @@ class SimpleApiServer(object):
 
         self.__welcome_page = welcome_page
         self.application = None
+        self.periodic_tasks = []
 
     def bind(self, route=None, function=None, dictionary=None):
         """bind the route with function."""
@@ -69,6 +71,8 @@ class SimpleApiServer(object):
                 raise socket.error("Port %d has been used,"
                                    " please consider to enable retry"
                                    " or change your port", port)
+        
+        self.start_all_periodic_tasks()
         tornado.ioloop.IOLoop.current().start()
 
     def make_app(self):

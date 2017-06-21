@@ -91,7 +91,7 @@ if __name__ == "__main__":
     app = ApiHttpServer({"/test", test_function})
     app.start()
     
-# then post url http://localhost/
+# then post url http://localhost/test
 ```
 
 ## Attention

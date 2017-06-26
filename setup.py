@@ -1,11 +1,20 @@
 from setuptools import setup, find_packages
 
+from os import path
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
   name = 'http_api_exporter',
   packages = find_packages(),
   version = '1.2.3',
   license = 'MIT',
   description = 'A simple api exporter for py',
+  long_description = long_description,
   author = 'Sraw',
   author_email = 'lzyl888@gmail.com',
   url = 'https://github.com/Sraw/http_api_exporter', 

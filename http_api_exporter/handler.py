@@ -37,7 +37,7 @@ class MainHandler(tornado.web.RequestHandler):
             except json.decoder.JSONDecodeError as error:
                 self.set_status(400)
                 error_msg = self.__get_error_msg("Body parse error, only JSON is accepted.")
-                logger.error(traceback.format_exc())
+                logger.exception("Body parse error")
                 self.finish(error_msg)
                 return
 
@@ -64,7 +64,7 @@ class MainHandler(tornado.web.RequestHandler):
         except Exception as error:
             self.set_status(500)
             error_msg = self.__get_error_msg(str(error))
-            logger.error(traceback.format_exc())
+            logger.exception("An exception was raised in called function.")
             self.finish(error_msg)
             return
 
@@ -86,7 +86,7 @@ class MainHandler(tornado.web.RequestHandler):
                 error_msg = self.__get_error_msg("The result returned from the function"
                                                  " you are calling is not jsonifiable,"
                                                  " please contact with author.")
-                logger.error(traceback.format_exc())
+                logger.exception("The result returned from function is not jsonifiable.")
                 self.finish(error_msg)
                 return
         else:
